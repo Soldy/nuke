@@ -109,11 +109,17 @@ function nuke:detonate(entity, radius)
 		minetest.add_item(pos, e.name)
 		return
 	end
-
+        
 	-- Cause entity physics even if we are put out.
 	-- This isn't very realistic but it allows for cannons.
+        if radius > 20 then
+	minetest.sound_play("nuke_atomic",
+		{pos = pos, gain = 10, max_hear_distance = 40*radius})
+        end
+        if 21 > radius  then        
 	minetest.sound_play("nuke_explode",
-		{pos = pos, gain = 1.0, max_hear_distance = 16})
+		{pos = pos, gain = 10, max_hear_distance = 4*radius})
+	end
 	self:entity_physics(pos, radius)
 	local node = minetest.get_node(pos)
 	if minetest.get_item_group(node.name, "puts_out_fire") <= 0 then

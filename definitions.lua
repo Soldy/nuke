@@ -6,6 +6,24 @@ function nuke:get_tiles(name)
 		side, side, side, side}
 end
 
+
+-- Atomic nuke
+minetest.register_craft({
+	output = "nuke:atomic 1",
+	recipe = {
+		{"nuke:mese", "nuke:mese", "nuke:mese"},
+		{"nuke:mese", "technic:uranium_fuel",   "nuke:mese"},
+		{"nuke:mese", "nuke:mese", "nuke:mese"}
+	}
+})
+
+nuke:register_nuke("nuke:atomic",
+		"Atomic nuke",
+		tonumber(nuke.config:get("atomic_radius")),
+		nuke:get_tiles("nuke_atomic"))
+
+
+
 -- Mese nuke
 minetest.register_craft({
 	output = "nuke:mese 3",
@@ -15,6 +33,7 @@ minetest.register_craft({
 		{"nuke:iron",            "default:mese_crystal", "nuke:iron"}
 	}
 })
+
 
 nuke:register_nuke("nuke:mese",
 		"Mese nuke",
